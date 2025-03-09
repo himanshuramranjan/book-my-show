@@ -1,2 +1,7 @@
-package enums;public enum SeatCategory {
+package enums;
+
+public enum SeatCategory {
+    SILVER,
+    GOLD,
+    PLATINUM
 }
