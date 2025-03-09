@@ -3,8 +3,8 @@ package modules;
 import enums.SeatCategory;
 
 public class Seat {
-    private String seatId;
-    private SeatCategory seatCategory;
+    private final String seatId;
+    private final SeatCategory seatCategory;
 
     public Seat(String seatId, SeatCategory seatCategory) {
         this.seatId = seatId;
