@@ -18,4 +18,12 @@ public class Screen {
     public List<Seat> getSeats() {
         return seats;
     }
+
+    public void addSeat(Seat seat) {
+        this.seats.add(seat);
+    }
+
+    public void removeSeat(Seat seat) {
+        this.seats.remove(seat);
+    }
 }

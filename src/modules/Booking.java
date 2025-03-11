@@ -6,12 +6,10 @@ import java.util.List;
 public class Booking {
     private final Show show;
     private Payment payment;
-    private final List<Seat> bookedSeats;
 
     public Booking(Show show, Payment payment) {
         this.show = show;
         this.payment = payment;
-        this.bookedSeats = new ArrayList<>();
     }
 
     public Show getShow() {
@@ -26,7 +24,4 @@ public class Booking {
         this.payment = payment;
     }
 
-    public List<Seat> getBookedSeats() {
-        return bookedSeats;
-    }
 }

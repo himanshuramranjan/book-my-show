@@ -36,5 +36,12 @@ public class MovieController {
         return moviesCityMap.get(city);
     }
 
+    public Movie getMovieByName(String movieName) {
+        for(Movie movie : allMovies) {
+            if(movie.getMovieName().equals(movieName))
+                return movie;
+        }
+        return null;
+    }
     // To implement other CRUD ops for movieMap
 }

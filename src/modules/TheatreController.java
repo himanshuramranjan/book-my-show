@@ -16,7 +16,7 @@ public class TheatreController {
         this.cityTheatreMap = new HashMap<>();
     }
 
-    public void addTheatreToCity(Theatre theatre, City city) {
+    private void addTheatreToCity(Theatre theatre, City city) {
         this.cityTheatreMap.getOrDefault(city, new ArrayList<>()).add(theatre);
     }
 
@@ -46,8 +46,9 @@ public class TheatreController {
         return allTheatres;
     }
 
-    public void addTheatre(Theatre theatre) {
+    public void addTheatre(Theatre theatre, City city) {
         this.allTheatres.add(theatre);
+        addTheatreToCity(theatre, city);
     }
 
     public void removeTheatre(Theatre theatre) {
