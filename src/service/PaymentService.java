@@ -1,10 +1,10 @@
 package modules;
 
-public class Payment {
+public class PaymentService {
     // Payment to implement
     private boolean isBillPaid;
 
-    public Payment(boolean isBillPaid) {
+    public PaymentService(boolean isBillPaid) {
         this.isBillPaid = false;
     }
 

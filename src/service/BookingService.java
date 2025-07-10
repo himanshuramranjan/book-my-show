@@ -1,13 +1,10 @@
 package modules;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Booking {
+public class BookingService {
     private final Show show;
     private Payment payment;
 
-    public Booking(Show show, Payment payment) {
+    public BookingService(Show show, Payment payment) {
         this.show = show;
         this.payment = payment;
     }

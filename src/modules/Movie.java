@@ -9,10 +9,12 @@ public class Movie {
     private int duration;
     private final List<String> genre;
     private final List<String> languages;
+    private int basePrice;
 
-    public Movie(String movieName, int duration) {
+    public Movie(String movieName, int duration, int basePrice) {
         this.movieName = movieName;
         this.duration = duration;
+        this.basePrice = basePrice;
         this.genre = new ArrayList<>();
         this.languages = new ArrayList<>();
     }
@@ -35,5 +37,13 @@ public class Movie {
 
     public List<String> getLanguages() {
         return languages;
+    }
+
+    public int getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(int basePrice) {
+        this.basePrice = basePrice;
     }
 }
