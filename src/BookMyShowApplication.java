@@ -1,7 +1,13 @@
 import enums.City;
 import enums.SeatCategory;
-import modules.*;
+import model.*;
+import service.BookingService;
+import service.MovieController;
+import service.PaymentService;
+import service.TheatreController;
 
+import java.awt.print.Book;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +18,11 @@ public class BookMyShowApplication {
     public volatile static BookMyShowApplication bookMyShowApplication;
     MovieController movieController;
     TheatreController theatreController;
+    BookingService bookingService;
     private BookMyShowApplication() {
         movieController = new MovieController();
         theatreController = new TheatreController();
+        bookingService = new BookingService(new PaymentService());
     }
 
     public static BookMyShowApplication getInstance() {
@@ -67,24 +75,20 @@ public class BookMyShowApplication {
 
         //5. select the seat
         String seatNumber = "3A";
-        List<Seat> listOfSeats = interestedShow.getListOfSeats();
+        List<Seat> listOfSeats = new ArrayList<>();
 
-        for(Seat seat : listOfSeats) {
+        for(Seat seat : interestedShow.getScreen().getSeats()) {
             if (seat.getSeatLoc().equals(seatNumber)) {
-                if (seat.isBooked()) {
-                    System.out.println("seat already booked, try again");
-                    return;
-                } else {
-                    Booking booking = new Booking(interestedShow, new Payment(true));
-                    for (Seat screenSeat : interestedShow.getScreen().getSeats()) {
-                        if (screenSeat.getSeatLoc().equals(seatNumber)) {
-                            screenSeat.bookSeat(true);
-                        }
-                    }
-                    System.out.println("BOOKING SUCCESSFUL : " + booking);
-                }
+                listOfSeats.add(seat);
             }
         }
+        Booking booking = bookingService.bookSeats(interestedShow, listOfSeats);
+
+        if(booking != null) {
+            System.out.println("Booking is done");
+            System.out.println(booking.getBookingInformation());
+        }
+
     }
 
     private void initialize() {
@@ -103,6 +107,9 @@ public class BookMyShowApplication {
         Movie baahubali = movieController.getMovieByName("BAAHUBALI");
 
         Theatre inoxTheatre = new Theatre("1", City.BANGALORE, "MG Road");
+        List<Screen> inoxScreens = createScreen();
+        inoxTheatre.addScreen(inoxScreens.get(0));
+
         Show inoxMorningShow = createShows(inoxTheatre.getScreens().get(0), avengerMovie, LocalDateTime.now());
         Show inoxEveningShow = createShows(inoxTheatre.getScreens().get(0), baahubali, LocalDateTime.now());
         inoxTheatre.addShow(inoxMorningShow);
@@ -110,8 +117,10 @@ public class BookMyShowApplication {
 
 
         Theatre pvrTheatre = new Theatre("2", City.DELHI, "Cannaut Palace");
+        List<Screen> pvrScreens = createScreen();
+        pvrTheatre.addScreen(pvrScreens.get(0));
         Show pvrMorningShow = createShows(pvrTheatre.getScreens().get(0), avengerMovie, LocalDateTime.now());
-        Show pvrEveningShow = createShows(pvrTheatre.getScreens().get(0), baahubali, LocalDateTime.now());
+        Show pvrEveningShow = createShows(pvrTheatre.getScreens().get(0), baahubali, LocalDateTime.of(2025, 7, 10, 21, 0));
         pvrTheatre.addShow(pvrMorningShow);
         pvrTheatre.addShow(pvrEveningShow);
 
@@ -162,10 +171,10 @@ public class BookMyShowApplication {
     private void createMovies() {
 
         //create Movies1
-        Movie avengers = new Movie("AVENGERS", 128);
+        Movie avengers = new Movie("AVENGERS", 128, 500);
 
         //create Movies2
-        Movie baahubali = new Movie("BAAHUBALI", 180);
+        Movie baahubali = new Movie("BAAHUBALI", 180, 300);
 
         //add movies against the cities
         movieController.addMovieToCity(avengers, City.BANGALORE);
