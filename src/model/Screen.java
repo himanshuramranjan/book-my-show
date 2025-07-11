@@ -26,4 +26,11 @@ public class Screen {
     public void removeSeat(Seat seat) {
         this.seats.remove(seat);
     }
+
+    @Override
+    public String toString() {
+        return "Screen{" +
+                "screenId=" + screenId +
+                '}';
+    }
 }

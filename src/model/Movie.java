@@ -46,4 +46,13 @@ public class Movie {
     public void setBasePrice(int basePrice) {
         this.basePrice = basePrice;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieName='" + movieName + '\'' +
+                ", duration=" + duration +
+                ", languages=" + languages +
+                '}';
+    }
 }
