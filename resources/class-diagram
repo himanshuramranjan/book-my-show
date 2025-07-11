@@ -1,0 +1,122 @@
++------------------------+
+|      BookMyShowApplication (Main Demo) |
++------------------------+
+| - movieController: MovieController     |
+| - theatreController: TheatreController |
+| - bookingService: BookingService       |
++------------------------+
+| + main(args)                           |
+| - initialize()                         |
+| - createBooking(city, movieName)       |
++------------------------+
+
+              ↓ uses
++---------------------+       +-------------------------+
+|  MovieController    |       |   TheatreController     |
++---------------------+       +-------------------------+
+| - movieCityMap: Map |       | - cityTheatreMap: Map   |
++---------------------+       +-------------------------+
+| + addMovieToCity()  |       | + addTheatre()          |
+| + getMoviesByCity() |       | + getAllShows()         |
+| + getMovieByName()  |       +-------------------------+
+
+              ↓ uses
++-------------------------+
+|     BookingService      |
++-------------------------+
+| - pricing: PricingComponent         |
++-------------------------+
+| + bookSeats(seats, show): Booking   |
+| - validateSeats()                   |
+| - lockSeats()                       |
+| - calculateTotal()                  |
+| - processPayment()                  |
+| - finalizeBooking()                 |
+| - unlockSeats()                     |
++-------------------------+
+
+              ↓ uses
++-------------------------+
+|     PaymentService      |
++-------------------------+
+| + processPayment(amount): Payment |
++-------------------------+
+
+              ↓ uses
++-------------------------+
+|       PricingComponent (Interface)       |
++-------------------------+
+| + getPrice(Seat, Show): double           |
++-------------------------+
+              ▲
+              |
++-------------------------+
+|     BasePriceComponent  |
++-------------------------+
+| + getPrice(): double    |
++-------------------------+
+
++-------------------------+   +-------------------------+
+|   PricingDecorator      |<--|  SeatCategoryAddon      |
++-------------------------+   +-------------------------+
+| - component: PricingComponent     |
+| + getPrice(): double              |
++-------------------------+   +-------------------------+
+
+                              +-------------------------+
+                              |   TimeBasedAddon        |
+                              +-------------------------+
+                              | + getPrice(): double    |
+                              +-------------------------+
+
++-------------------------+
+|     Movie               |
++-------------------------+
+| - name, duration, basePrice |
++-------------------------+
+
++-------------------------+
+|     Theatre             |
++-------------------------+
+| - id, city, address     |
+| - screens: List<Screen> |
+| - shows: List<Show>     |
++-------------------------+
+
++-------------------------+
+|     Screen              |
++-------------------------+
+| - id                    |
+| - seats: List<Seat>     |
++-------------------------+
+
++-------------------------+
+|     Show                |
++-------------------------+
+| - movie: Movie          |
+| - screen: Screen        |
+| - startTime: LocalDateTime |
++-------------------------+
+
++-------------------------+
+|     Seat                |
++-------------------------+
+| - id, seatLoc, category |
+| - isBooked, isLocked    |
+| + bookSeat(), lock(), unlock() |
++-------------------------+
+
++-------------------------+
+|     Booking             |
++-------------------------+
+| - show: Show            |
+| - payment: Payment      |
+| - seats: List<Seat>     |
++-------------------------+
+
++-------------------------+
+|     Payment             |
++-------------------------+
+| - status: boolean       |
+| - amount: double        |
++-------------------------+
