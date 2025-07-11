@@ -3,3 +3,18 @@
 can add a paymentService method (UPI, Cash) and pass on to the Booking Service,
 based on which PaymentService can provide the paymentService service with customization
 
+> Testing the multithreading safety
+
+// Inside BookMyShowApplication
+Runnable user1 = () -> {
+    List<String> seats = List.of("3A", "4A");
+    bookingService.bookTheShow(show, seats, 400, "user1");
+};
+
+Runnable user2 = () -> {
+    List<String> seats = List.of("3A", "5A");
+    bookingService.bookTheShow(show, seats, 400, "user2");
+};
+
+new Thread(user1).start();
+new Thread(user2).start();
