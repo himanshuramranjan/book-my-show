@@ -1,6 +1,8 @@
-package modules;
+package service;
 
 import enums.City;
+import model.Show;
+import model.Theatre;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,11 @@ public class TheatreController {
     }
 
     private void addTheatreToCity(Theatre theatre, City city) {
-        this.cityTheatreMap.getOrDefault(city, new ArrayList<>()).add(theatre);
+        if(!cityTheatreMap.containsKey(city)) {
+            cityTheatreMap.put(city, new ArrayList<>());
+        }
+        adTheatre(theatre);
+        this.cityTheatreMap.get(city).add(theatre);
     }
 
     public void removeTheatreToCity(Theatre theatre, City city) {
@@ -54,4 +60,6 @@ public class TheatreController {
     public void removeTheatre(Theatre theatre) {
         this.allTheatres.remove(theatre);
     }
+
+    public void adTheatre(Theatre theatre) { this.allTheatres.add(theatre); }
 }

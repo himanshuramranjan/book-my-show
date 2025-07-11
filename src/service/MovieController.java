@@ -1,6 +1,7 @@
-package modules;
+package service;
 
 import enums.City;
+import model.Movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,11 @@ public class MovieController {
     }
 
     public void addMovieToCity(Movie movie, City city) {
-        this.moviesCityMap.getOrDefault(city, new ArrayList<>()).add(movie);
+        if(!moviesCityMap.containsKey(city)) {
+            moviesCityMap.put(city, new ArrayList<>());
+        }
+        addMovie(movie);
+        this.moviesCityMap.get(city).add(movie);
     }
 
     public void removeMovieFromCity(Movie movie, City city) {

@@ -1,18 +1,12 @@
-package modules;
+package service;
 
 public class PaymentService {
-    // Payment to implement
-    private boolean isBillPaid;
 
-    public PaymentService(boolean isBillPaid) {
-        this.isBillPaid = false;
+    public PaymentService() {
     }
 
-    public boolean isBillPaid() {
-        return isBillPaid;
-    }
-
-    public void setBillPaid(boolean billPaid) {
-        isBillPaid = billPaid;
+    public boolean processPayment(double amount) {
+        // can be further implemented with detail
+        return true;
     }
 }
