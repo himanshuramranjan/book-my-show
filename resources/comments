@@ -1,0 +1,5 @@
+> Payment Type extension
+
+can add a paymentService method (UPI, Cash) and pass on to the Booking Service,
+based on which PaymentService can provide the paymentService service with customization
+
