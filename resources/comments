@@ -1,3 +1,24 @@
+> Flow diagram for the app
+
+User inputs → city & movie name
+         ↓
+Get movies by city → MovieController
+         ↓
+Filter movie from list
+         ↓
+Get all shows of the movie in the city → TheatreController
+         ↓
+Pick first show from the map
+         ↓
+Select seat from show.getListOfSeats()
+         ↓
+If seat is not booked → proceed
+         ↓
+Mark seat booked in screen.getSeats()
+         ↓
+Create Booking + Print
+
+
 > Payment Type extension
 
 can add a paymentService method (UPI, Cash) and pass on to the Booking Service,
